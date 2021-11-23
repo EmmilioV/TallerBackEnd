@@ -34,4 +34,13 @@ public class UsuarioController {
     public ArrayList<UsuarioModel> obtenerUsuarioPorPrioridad(@RequestParam("prioridad") Integer prioridad){
         return this.usuarioService.obtenerPorPrioridad(prioridad);
     }
+
+    @DeleteMapping(path = "/{id}")
+    public String borrarUsuarioPorId(@PathVariable("id") Long id){
+        boolean borrado = this.usuarioService.borrarPorId(id);
+        if(borrado)
+            return  "El usuario con id " + id +" ha sido borrado";
+        else
+            return  "Ha ocurrido un problema al borrar al usuario con id " + id;
+    }
 }
