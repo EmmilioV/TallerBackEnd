@@ -18,13 +18,20 @@ public class UsuarioService {
         return (ArrayList<UsuarioModel>) usuarioRepository.findAll();
     }
 
-    public UsuarioModel guardarUsuario(UsuarioModel usuario)
+    public Object guardarUsuario(UsuarioModel usuario)
     {
-        return usuarioRepository.save(usuario);
+        if(usuarioRepository.findByEmail(usuario.getEmail()).isEmpty())
+            return usuarioRepository.save(usuario);
+        else
+            return "Ya existe un usuario con este correo";
     }
 
     public Optional<UsuarioModel> obtenerPorId(Long id){
         return usuarioRepository.findById(id);
+    }
+
+    public Optional<UsuarioModel> obtenerPorEmail(String email){
+        return usuarioRepository.findByEmail(email);
     }
 
     public ArrayList<UsuarioModel> obtenerPorPrioridad(Integer prioridad){
